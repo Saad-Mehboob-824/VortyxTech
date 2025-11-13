@@ -1,0 +1,29 @@
+{
+  "projects": [
+    {
+      "title": "Real-time Multimodal Sensor Fusion",
+      "category": "Perception",
+      "categoryIcon": "radar",
+      "description": "Low-power fusion across LiDAR, RGB, and IMU for robotics and drones.",
+      "image": "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=2200&auto=format&fit=crop",
+      "link": "#"
+    },
+    {
+      "title": "Self-healing Edge Orchestrator",
+      "category": "Systems",
+      "categoryIcon": "server",
+      "description": "Zero-downtime rollouts and on-device model switching based on signal quality.",
+      "image": "https://images.unsplash.com/photo-1496307042754-b4aa456c4a2d?q=80&w=2200&auto=format&fit=crop",
+      "link": "#"
+    },
+    {
+      "title": "Adaptive Simulation Toolkit",
+      "category": "Generative",
+      "categoryIcon": "wand-2",
+      "description": "Procedural environments to bootstrap training data and evaluate safety.",
+      "image": "https://images.unsplash.com/photo-1621619856624-42fd193a0661?w=1080&q=80",
+      "link": "#"
+    }
+  ]
+}
+

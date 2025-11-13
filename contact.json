@@ -1,0 +1,21 @@
+{
+  "email": "muhammadsaadmeh824@gmail.com",
+  "social": [
+    {
+      "name": "Instagram",
+      "url": "https://www.instagram.com/vortyxtech/",
+      "icon": "instagram"
+    },
+    {
+      "name": "LinkedIn",
+      "url": "https://www.linkedin.com/in/muhammad-saad-mehboob-125829247/",
+      "icon": "linkedin"
+    },
+    {
+      "name": "X/Twitter",
+      "url": "https://x.com/VortyxTech",
+      "icon": "twitter"
+    }
+  ]
+}
+

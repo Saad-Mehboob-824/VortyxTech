@@ -1,0 +1,787 @@
+<html lang="en" class="scroll-smooth"><head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>vortyx Tech — Futuristic Minimal</title>
+  <meta name="theme-color" content="#0b0f14">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&amp;display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    :root { color-scheme: dark; }
+    html, body { background:#0b0f14; }
+    body { font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, 'Helvetica Neue', Arial, 'Apple Color Emoji','Segoe UI Emoji'; cursor: none; }
+    .lucide { stroke-width: 1.5; }
+
+    .theme-anim *, .theme-anim *::before, .theme-anim *::after {
+      transition: background-color 320ms ease, color 320ms ease, border-color 320ms ease, box-shadow 320ms ease, fill 320ms ease, stroke 320ms ease, opacity 240ms ease, transform 240ms ease;
+    }
+
+    .cursor-dot, .cursor-ring {
+      position: fixed; left: 0; top: 0; pointer-events: none; z-index: 50; transform: translate(-50%, -50%);
+    }
+    .cursor-dot { width: 8px; height: 8px; border-radius: 9999px; background: rgba(168, 255, 255, 0.9); box-shadow: 0 0 18px rgba(94,234,212,0.85), 0 0 36px rgba(129,140,248,0.55); mix-blend-mode: screen;}
+    .cursor-ring { width: 32px; height: 32px; border-radius: 9999px; border: 1px solid rgba(94,234,212,0.55); box-shadow: 0 0 30px rgba(94,234,212,0.25), inset 0 0 18px rgba(94,234,212,0.12); backdrop-filter: blur(2px);}
+    .cursor-hide { opacity: 0; }
+    .cursor-active .cursor-ring { transform: translate(-50%, -50%) scale(1.7); border-color: rgba(129,140,248,0.7); box-shadow: 0 0 40px rgba(129,140,248,0.35), inset 0 0 22px rgba(129,140,248,0.18);}
+    #particles { width: 100%; height: 100%; display: block; }
+    .reveal { opacity: 0; transform: translateY(16px); transition: opacity 700ms ease, transform 700ms ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .glass { background: rgba(15, 21, 29, 0.55); backdrop-filter: blur(8px); border: 1px solid rgba(148, 163, 184, 0.12); }
+    .neon-shadow { box-shadow: 0 0 40px rgba(34,211,238,0.12), 0 0 80px rgba(168,85,247,0.08); }
+    .accent-line { height: 1px; background: linear-gradient(90deg, transparent, rgba(34,211,238,0.6), rgba(168,85,247,0.6), transparent); }
+    ::selection { background: rgba(34,211,238,0.25); color: #e5f9ff; }
+    @supports(padding: max(0px)) {
+      header { padding-left: max(1rem, env(safe-area-inset-left)); padding-right: max(1rem, env(safe-area-inset-right)); }
+    }
+  </style>
+  <style>
+    html,body{overflow-x:hidden;}
+  </style>
+
+  <style>
+    html[data-theme="light"] { color-scheme: light; }
+    html[data-theme="light"], html[data-theme="light"] body { background:#f8fafc; }
+    html[data-theme="light"] body { color:#0f172a; }
+    html[data-theme="light"] ::selection { background: rgba(14,165,233,0.2); color:#0f172a; }
+
+    html[data-theme="light"] .cursor-dot { background: rgba(14,116,144,0.9); box-shadow: 0 0 18px rgba(14,165,233,0.55), 0 0 36px rgba(147,197,253,0.35); mix-blend-mode: multiply; }
+    html[data-theme="light"] .cursor-ring { border-color: rgba(14,165,233,0.45); box-shadow: 0 0 26px rgba(14,165,233,0.2), inset 0 0 14px rgba(14,165,233,0.12); }
+
+    html[data-theme="light"] .text-slate-200 { color:#0f172a !important; }
+    html[data-theme="light"] .text-slate-300 { color:#334155 !important; }
+    html[data-theme="light"] .text-slate-400 { color:#475569 !important; }
+    html[data-theme="light"] .text-slate-500 { color:#64748b !important; }
+
+    html[data-theme="light"] .glass {
+      background: rgba(255,255,255,0.75);
+      border-color: rgba(2,6,23,0.08);
+    }
+
+    html[data-theme="light"] input,
+    html[data-theme="light"] textarea,
+    html[data-theme="light"] select {
+      background: rgba(2,6,23,0.04) !important;
+      color:#0f172a !important;
+      border-color: rgba(2,6,23,0.12) !important;
+    }
+
+    html[data-theme="light"] .media-fade {
+      background: linear-gradient(to top, rgba(248,250,252,0.85), transparent 40%);
+    }
+
+    /* More prominent grid in light mode */
+    html[data-theme="light"] .grid-pattern {
+      background-image:
+        linear-gradient(rgba(15,23,42,0.18) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(15,23,42,0.18) 1px, transparent 1px) !important;
+    }
+
+    /* Logo theme adaptation - Dark mode (default) */
+    .brand-logo .logo-border {
+      stroke: #9aa0a6;
+    }
+    .brand-logo .logo-crosshair {
+      stroke: #8892a6;
+    }
+    .brand-logo .logo-polyline {
+      stroke: #ffffff;
+    }
+    .brand-logo .logo-dot {
+      fill: #ffffff;
+    }
+
+    /* Logo theme adaptation - Light mode */
+    html[data-theme="light"] .brand-logo .logo-border {
+      stroke: #64748b !important;
+    }
+    html[data-theme="light"] .brand-logo .logo-crosshair {
+      stroke: #475569 !important;
+    }
+    html[data-theme="light"] .brand-logo .logo-polyline {
+      stroke: #0f172a !important;
+    }
+    html[data-theme="light"] .brand-logo .logo-dot {
+      fill: #0f172a !important;
+    }
+  </style>
+</head>
+<body class="text-slate-200 antialiased selection:bg-cyan-500/20 transition-colors">
+  <div class="cursor-dot"></div>
+  <div class="cursor-ring"></div>
+
+  <header class="fixed top-5 inset-x-0 z-40">
+    <div class="accent-line"></div>
+    <nav class="glass neon-shadow mx-auto max-w-7xl mt-0 rounded-2xl px-4 md:px-6 py-3 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <button id="menuOpen" class="md:hidden inline-flex items-center justify-center rounded-full p-2 hover:bg-white/5 hover:outline hover:outline-1 hover:outline-white/10 transition">
+          <i data-lucide="menu" class="size-5"></i>
+          <span class="sr-only">Open menu</span>
+        </button>
+
+        <a href="#home" class="group flex items-center gap-3">
+          <div class="relative size-9 md:size-10 grid place-items-center rounded-full">
+            <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" class="brand-logo">
+              <circle cx="50" cy="50" r="46" fill="none" stroke-width="4" class="logo-border"></circle>
+              <line x1="50" y1="32" x2="50" y2="67" stroke-width="1.2" opacity="0.5" class="logo-crosshair"></line>
+              <line x1="18" y1="50" x2="82" y2="50" stroke-width="1.2" opacity="0.5" class="logo-crosshair"></line>
+              <polyline points="17.79999542236328,52.20000076293945 37.79999542236328,32.20000076293945 92.79999542236328,32.20000076293945" fill="none" stroke-width="3" class="logo-polyline"></polyline>
+              <g transform="translate(100,100) scale(-1,-1)">
+                <polyline points="17.79999542236328,52.20000076293945 37.79999542236328,32.20000076293945 92.79999542236328,32.20000076293945" fill="none" stroke-width="3" class="logo-polyline"></polyline>
+              </g>
+              <circle cx="15.199999809265137" cy="54.599998474121094" r="4.5" class="logo-dot"></circle>
+              <circle cx="83.4000015258789" cy="45" r="4.5" class="logo-dot"></circle>
+            </svg>
+          </div>
+          <div class="hidden sm:flex flex-col leading-tight">
+            <span class="text-base md:text-lg font-semibold tracking-tight">vortyx Tech</span>
+            <span class="text-[11px] md:text-xs text-slate-400">Intelligence at the edge</span>
+          </div>
+        </a>
+      </div>
+
+      <div class="hidden md:flex items-center gap-7 text-sm">
+        <a href="#about" class="hover:text-cyan-300/90 transition-colors">About</a>
+        <a href="#projects" class="hover:text-cyan-300/90 transition-colors">Projects</a>
+        <a href="#services" class="hover:text-cyan-300/90 transition-colors">Services</a>
+      </div>
+
+      <div class="flex items-center gap-2">
+        <button id="themeToggle" class="inline-flex items-center justify-center rounded-full p-2 hover:bg-white/5 hover:outline hover:outline-1 hover:outline-white/10 transition" aria-label="Toggle theme">
+          <i class="size-5 theme-icon-sun" data-lucide="sun"></i>
+          <i class="size-5 theme-icon-moon hidden" data-lucide="moon"></i>
+        </button>
+        <a href="/contact" class="group inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium bg-gradient-to-r from-cyan-500/20 to-fuchsia-500/20 ring-1 ring-cyan-400/30 hover:ring-cyan-300/50 transition-all">
+          <i data-lucide="send" class="size-4 text-cyan-300 group-hover:translate-x-0.5 transition-transform"></i>
+          <span class="font-medium">Get in touch</span>
+        </a>
+      </div>
+    </nav>
+  </header>
+
+  <div id="drawer" class="fixed inset-0 z-50 opacity-0 pointer-events-none transition-opacity duration-300">
+    <div id="drawerBackdrop" class="absolute inset-0 bg-slate-900/60 backdrop-blur-sm"></div>
+    <aside id="drawerPanel" class="absolute left-0 top-0 h-full w-[84%] max-w-sm bg-[#0b0f14] text-slate-200 border-r border-white/10 p-6 -translate-x-full transition-transform duration-300">
+      <div class="flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <div class="relative size-8 grid place-items-center rounded-full">
+            <svg viewBox="0 0 100 100" class="w-full h-full brand-logo">
+              <circle cx="50" cy="50" r="46" fill="none" stroke-width="4" class="logo-border"></circle>
+              <line x1="50" y1="32" x2="50" y2="67" stroke-width="1.2" opacity="0.5" class="logo-crosshair"></line>
+              <line x1="18" y1="50" x2="82" y2="50" stroke-width="1.2" opacity="0.5" class="logo-crosshair"></line>
+              <polyline points="17.79999542236328,52.20000076293945 37.79999542236328,32.20000076293945 92.79999542236328,32.20000076293945" fill="none" stroke-width="3" class="logo-polyline"></polyline>
+              <g transform="translate(100,100) scale(-1,-1)">
+                <polyline points="17.79999542236328,52.20000076293945 37.79999542236328,32.20000076293945 92.79999542236328,32.20000076293945" fill="none" stroke-width="3" class="logo-polyline"></polyline>
+              </g>
+              <circle cx="15.199999809265137" cy="54.599998474121094" r="4.5" class="logo-dot"></circle>
+              <circle cx="83.4000015258789" cy="45" r="4.5" class="logo-dot"></circle>
+            </svg>
+          </div>
+          <span class="text-base font-semibold tracking-tight">vortyx Tech</span>
+        </div>
+        <button id="drawerClose" class="inline-flex items-center justify-center rounded-full p-2 hover:bg-white/5 hover:outline hover:outline-1 hover:outline-white/10 transition">
+          <i data-lucide="x" class="size-5"></i>
+          <span class="sr-only">Close menu</span>
+        </button>
+      </div>
+
+      <div class="mt-6 h-px bg-white/10"></div>
+
+      <nav class="mt-4 grid gap-2 text-sm">
+        <a href="#about" class="flex items-center justify-between rounded-lg px-3 py-2 hover:bg-white/5 transition">
+          <span>About</span>
+          <i data-lucide="arrow-right" class="size-4"></i>
+        </a>
+        <a href="#projects" class="flex items-center justify-between rounded-lg px-3 py-2 hover:bg-white/5 transition">
+          <span>Projects</span>
+          <i data-lucide="arrow-right" class="size-4"></i>
+        </a>
+        <a href="#services" class="flex items-center justify-between rounded-lg px-3 py-2 hover:bg-white/5 transition">
+          <span>Services</span>
+          <i data-lucide="arrow-right" class="size-4"></i>
+        </a>
+        <a href="#contact" class="flex items-center justify-between rounded-lg px-3 py-2 hover:bg-white/5 transition">
+          <span>Contact</span>
+          <i data-lucide="arrow-right" class="size-4"></i>
+        </a>
+      </nav>
+
+      <div class="mt-6 h-px bg-white/10"></div>
+
+      <div class="mt-4 flex items-center justify-between">
+        <button id="themeToggleMobile" class="inline-flex items-center gap-2 rounded-full px-3 py-2 hover:bg-white/5 hover:outline hover:outline-1 hover:outline-white/10 transition" aria-label="Toggle theme">
+          <i class="size-5 theme-icon-sun" data-lucide="sun"></i>
+          <i class="size-5 theme-icon-moon hidden" data-lucide="moon"></i>
+          <span class="text-sm">Theme</span>
+        </button>
+        <a href="/contact" class="inline-flex items-center gap-2 rounded-full px-3 py-2 text-sm bg-cyan-500/15 ring-1 ring-cyan-400/30 hover:bg-cyan-500/20 hover:ring-cyan-300/60 transition">
+          <i data-lucide="send" class="size-4 text-cyan-300"></i>
+          Contact
+        </a>
+      </div>
+    </aside>
+  </div>
+
+  <main class="relative">
+    <section id="home" class="relative min-h-[100svh] flex items-center">
+      <div class="absolute inset-0">
+        <canvas id="particles" data-parallax="0.01" class="will-change-transform"></canvas>
+        <div class="absolute -top-24 -left-24 w-[40rem] h-[40rem] bg-cyan-500/10 rounded-full blur-3xl will-change-transform" data-parallax="0.05"></div>
+        <div class="absolute -bottom-28 -right-24 w-[38rem] h-[38rem] bg-fuchsia-500/10 rounded-full blur-3xl will-change-transform" data-parallax="0.08"></div>
+        <div class="grid-pattern absolute inset-0 [background-image:linear-gradient(rgba(148,163,184,0.06)_1px,transparent_1px),linear-gradient(90deg,rgba(148,163,184,0.06)_1px,transparent_1px)] [background-size:40px_40px] [mask-image:radial-gradient(60%_60%_at_50%_50%,black,transparent_75%)] will-change-transform" data-parallax="0.02"></div>
+      </div>
+
+      <div class="relative z-10 mx-auto max-w-4xl px-4 md:px-6 pt-28 md:pt-36 pb-16 md:pb-24 flex flex-col items-center text-center">
+        <div class="reveal">
+          <h1 class="text-4xl sm:text-5xl lg:text-7xl font-semibold tracking-tight leading-[1.05]">
+            Shaping the next
+            <span class="bg-gradient-to-r from-cyan-300 via-sky-300 to-fuchsia-400 bg-clip-text text-transparent">
+              vortyx
+            </span>
+            of intelligence
+          </h1>
+          <p class="mt-5 text-slate-400 text-base md:text-lg max-w-2xl mx-auto">
+            We design adaptive AI systems, edge-first compute, and fluid
+            developer tools that feel like the future—lightweight, autonomous,
+            and beautifully simple.
+          </p>
+          <div class="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
+            <a href="/projects" class="group inline-flex items-center gap-2 rounded-full px-5 py-3 text-sm font-medium bg-cyan-500/15 ring-1 ring-cyan-400/30 hover:bg-cyan-500/20 hover:ring-cyan-300/60 transition-all">
+              <i data-lucide="rocket" class="size-4 text-cyan-300 group-hover:-translate-y-0.5 transition-transform"></i>
+              Explore Projects
+            </a>
+            <a href="/contact" class="group inline-flex items-center gap-2 rounded-full px-7 py-4 text-sm font-medium bg-gradient-to-r from-cyan-500/20 to-fuchsia-500/20 ring-1 ring-cyan-400/30 hover:ring-cyan-300/50 transition-all">
+              <i data-lucide="send" class="size-4 text-cyan-300 group-hover:translate-x-0.5 transition-transform"></i>
+              <span class="font-medium">Get in touch</span>
+            </a>
+          </div>
+
+          <div class="mt-10 max-w-md mx-auto">
+            <div class="h-px w-full bg-gradient-to-r from-transparent via-cyan-500/50 to-transparent"></div>
+            <div class="mt-6 grid grid-cols-3 gap-4 text-xs text-slate-400">
+              <div class="glass rounded-xl p-3 hover:ring-1 hover:ring-cyan-400/30 transition">
+                <i data-lucide="cpu" class="size-4 text-cyan-300"></i>
+                <p class="mt-2">Edge AI</p>
+              </div>
+              <div class="glass rounded-xl p-3 hover:ring-1 hover:ring-cyan-400/30 transition">
+                <i data-lucide="line-chart" class="size-4 text-fuchsia-300"></i>
+                <p class="mt-2">Autonomous Ops</p>
+              </div>
+              <div class="glass rounded-xl p-3 hover:ring-1 hover:ring-cyan-400/30 transition">
+                <i data-lucide="binary" class="size-4 text-indigo-300"></i>
+                <p class="mt-2">Dev Tools</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="about" class="relative py-20 md:py-28">
+      <div class="mx-auto max-w-7xl px-4 md:px-6">
+        <div class="reveal max-w-2xl">
+          <h2 class="text-3xl md:text-5xl font-semibold tracking-tight">About</h2>
+          <p class="mt-4 text-slate-400 text-base md:text-lg">
+            vortyx Tech builds modular intelligence platforms that scale from
+            a single sensor to planetary networks. Our stack blends efficient
+            on-device models, streaming inference, and self-healing
+            services—so teams can ship systems that learn continuously.
+          </p>
+        </div>
+
+        <div class="reveal grid md:grid-cols-3 gap-6 mt-10">
+          <div class="group glass rounded-2xl p-6 hover:ring-1 hover:ring-cyan-400/40 transition-all">
+            <div class="flex items-center gap-3">
+              <i data-lucide="layers" class="size-5 text-cyan-300"></i>
+              <h3 class="text-lg font-medium tracking-tight">Composable AI</h3>
+            </div>
+            <p class="mt-3 text-slate-400 text-sm">
+              From perception to planning, each block is swappable and
+              declarative for rapid iteration.
+            </p>
+          </div>
+          <div class="group glass rounded-2xl p-6 hover:ring-1 hover:ring-cyan-400/40 transition-all">
+            <div class="flex items-center gap-3">
+              <i data-lucide="wifi" class="size-5 text-fuchsia-300"></i>
+              <h3 class="text-lg font-medium tracking-tight">Edge-first</h3>
+            </div>
+            <p class="mt-3 text-slate-400 text-sm">
+              Stream inference, reduce latency, and cut cloud costs with smart
+              placement and caching.
+            </p>
+          </div>
+          <div class="group glass rounded-2xl p-6 hover:ring-1 hover:ring-cyan-400/40 transition-all">
+            <div class="flex items-center gap-3">
+              <i data-lucide="sparkles" class="size-5 text-indigo-300"></i>
+              <h3 class="text-lg font-medium tracking-tight">Human-in-the-loop</h3>
+            </div>
+            <p class="mt-3 text-slate-400 text-sm">
+              Built-in feedback loops improve model performance and safety
+              over time.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="accent-line"></div>
+
+    <section id="projects" class="relative py-20 md:py-28">
+      <div class="mx-auto max-w-7xl px-4 md:px-6">
+        <div class="reveal flex items-end justify-between gap-6">
+          <div>
+            <h2 class="text-3xl md:text-5xl font-semibold tracking-tight">Projects</h2>
+            <p class="mt-3 text-slate-400 max-w-xl">
+              Selected work exploring autonomy, realtime perception, and
+              generative tooling.
+            </p>
+          </div>
+          <a href="/contact" class="hidden md:inline-flex items-center gap-2 text-sm text-slate-300 hover:text-cyan-300/90 transition">
+            <span class="font-medium">Partner with us</span>
+            <i data-lucide="arrow-right" class="size-4"></i>
+          </a>
+        </div>
+
+        <div id="projectsContainer" class="grid md:grid-cols-3 gap-6 mt-10">
+          <!-- Projects will be loaded dynamically from projects.json -->
+        </div>
+      </div>
+    </section>
+
+    <div class="accent-line"></div>
+
+    <section id="services" class="relative py-20 md:py-28">
+      <div class="mx-auto max-w-7xl px-4 md:px-6">
+        <div class="reveal">
+          <h2 class="text-3xl md:text-5xl font-semibold tracking-tight">Services</h2>
+          <p class="mt-3 text-slate-400 max-w-xl">What we offer to accelerate your roadmap.</p>
+        </div>
+        <div class="reveal grid md:grid-cols-3 gap-6 mt-10">
+          <div class="group glass rounded-2xl p-6 hover:ring-1 hover:ring-cyan-400/40 transition-all">
+            <div class="flex items-center gap-3">
+              <i data-lucide="brain-circuit" class="size-5 text-cyan-300"></i>
+              <h3 class="text-lg font-medium tracking-tight">Model Design</h3>
+            </div>
+            <p class="mt-3 text-slate-400 text-sm">Custom compact architectures tailored for edge devices.</p>
+          </div>
+          <div class="group glass rounded-2xl p-6 hover:ring-1 hover:ring-cyan-400/40 transition-all">
+            <div class="flex items-center gap-3">
+              <i data-lucide="router" class="size-5 text-fuchsia-300"></i>
+              <h3 class="text-lg font-medium tracking-tight">Edge Deployment</h3>
+            </div>
+            <p class="mt-3 text-slate-400 text-sm">Packaging, acceleration, and rollout strategies for fleets.</p>
+          </div>
+          <div class="group glass rounded-2xl p-6 hover:ring-1 hover:ring-cyan-400/40 transition-all">
+            <div class="flex items-center gap-3">
+              <i data-lucide="workflow" class="size-5 text-indigo-300"></i>
+              <h3 class="text-lg font-medium tracking-tight">MLOps &amp; Tooling</h3>
+            </div>
+            <p class="mt-3 text-slate-400 text-sm">Observability, evaluation, and data engines that close the loop.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="accent-line"></div>
+
+    <section id="contact" class="relative py-20 md:py-28">
+      <div class="mx-auto max-w-7xl px-4 md:px-6">
+        <div class="reveal max-w-2xl">
+          <h2 class="text-3xl md:text-5xl font-semibold tracking-tight">Contact</h2>
+          <p class="mt-3 text-slate-400">
+            Tell us about your project or request a private demo. We’ll reply
+            within 2 business days.
+          </p>
+        </div>
+
+        <div class="reveal mt-10 grid md:grid-cols-2 gap-6">
+          <form class="glass rounded-2xl p-6 md:p-8 space-y-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label class="text-sm text-slate-300">First name</label>
+                <input type="text" required="" placeholder="Alex" class="mt-2 w-full rounded-xl bg-slate-900/60 px-3 py-3 text-sm ring-1 ring-white/10 focus:outline-none focus:ring-2 focus:ring-cyan-400/50 transition">
+              </div>
+              <div>
+                <label class="text-sm text-slate-300">Last name</label>
+                <input type="text" required="" placeholder="Kim" class="mt-2 w-full rounded-xl bg-slate-900/60 px-3 py-3 text-sm ring-1 ring-white/10 focus:outline-none focus:ring-2 focus:ring-cyan-400/50 transition">
+              </div>
+            </div>
+            <div>
+              <label class="text-sm text-slate-300">Email</label>
+              <input type="email" required="" placeholder="you@company.com" class="mt-2 w-full rounded-xl bg-slate-900/60 px-3 py-3 text-sm ring-1 ring-white/10 focus:outline-none focus:ring-2 focus:ring-cyan-400/50 transition">
+            </div>
+            <div>
+              <label class="text-sm text-slate-300">Company</label>
+              <input type="text" placeholder="Acme Robotics" class="mt-2 w-full rounded-xl bg-slate-900/60 px-3 py-3 text-sm ring-1 ring-white/10 focus:outline-none focus:ring-2 focus:ring-cyan-400/50 transition">
+            </div>
+            <div>
+              <label class="text-sm text-slate-300">Message</label>
+              <textarea rows="5" required="" placeholder="Tell us about timelines, scope, and goals..." class="mt-2 w-full rounded-xl bg-slate-900/60 px-3 py-3 text-sm ring-1 ring-white/10 focus:outline-none focus:ring-2 focus:ring-cyan-400/50 transition"></textarea>
+            </div>
+            <button type="submit" class="group inline-flex items-center justify-center gap-2 w-full md:w-auto rounded-xl px-5 py-3 text-sm font-medium bg-cyan-500/15 ring-1 ring-cyan-400/30 hover:bg-cyan-500/20 hover:ring-cyan-300/60 transition">
+              <i data-lucide="send" class="size-4 text-cyan-300 group-hover:translate-x-0.5 transition-transform"></i>
+              Send message
+            </button>
+          </form>
+
+          <!-- Consolidated contact details card -->
+          <div id="contactContainer" class="glass rounded-2xl p-6 md:p-8 space-y-6">
+            <!-- Contact info will be loaded dynamically from contact.json -->
+          </div>
+        </div>
+
+        <div class="mt-14 h-px w-full bg-gradient-to-r from-transparent via-white/10 to-transparent"></div>
+
+        <footer class="mt-6 flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-slate-400">
+          <div class="flex items-center gap-3">
+            <svg viewBox="0 0 100 100" class="w-7 h-7 brand-logo">
+              <circle cx="50" cy="50" r="46" fill="none" stroke-width="4" class="logo-border"></circle>
+              <line x1="50" y1="32" x2="50" y2="67" stroke-width="1.2" opacity="0.5" class="logo-crosshair"></line>
+              <line x1="18" y1="50" x2="82" y2="50" stroke-width="1.2" opacity="0.5" class="logo-crosshair"></line>
+              <polyline points="17.79999542236328,52.20000076293945 37.79999542236328,32.20000076293945 92.79999542236328,32.20000076293945" fill="none" stroke-width="3" class="logo-polyline"></polyline>
+              <g transform="translate(100,100) scale(-1,-1)">
+                <polyline points="17.79999542236328,52.20000076293945 37.79999542236328,32.20000076293945 92.79999542236328,32.20000076293945" fill="none" stroke-width="3" class="logo-polyline"></polyline>
+              </g>
+              <circle cx="15.199999809265137" cy="54.599998474121094" r="4.5" class="logo-dot"></circle>
+              <circle cx="83.4000015258789" cy="45" r="4.5" class="logo-dot"></circle>
+            </svg>
+            <span>© <span id="year"></span> vortyx Tech. All rights reserved.</span>
+          </div>
+          <div class="flex items-center gap-4">
+            <a href="#about" class="hover:text-cyan-300/90 transition">About</a>
+            <a href="#projects" class="hover:text-cyan-300/90 transition">Projects</a>
+            <a href="#services" class="hover:text-cyan-300/90 transition">Services</a>
+            <a href="#contact" class="hover:text-cyan-300/90 transition">Contact</a>
+          </div>
+        </footer>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+    lucide.createIcons();
+
+    const dot = document.querySelector('.cursor-dot');
+    const ring = document.querySelector('.cursor-ring');
+    let mx = window.innerWidth / 2, my = window.innerHeight / 2;
+    let rx = mx, ry = my;
+
+    const isInteractive = (el) => el.closest('a, button, input, textarea, select, [role="button"]');
+
+    window.addEventListener('mousemove', (e) => {
+      mx = e.clientX; my = e.clientY;
+      dot.style.left = mx + 'px';
+      dot.style.top = my + 'px';
+      // expose for parallax script
+      window.mx = mx; window.my = my;
+    });
+
+    (function animateRing(){
+      rx += (mx - rx) * 0.15;
+      ry += (my - ry) * 0.15;
+      ring.style.left = rx + 'px';
+      ring.style.top = ry + 'px';
+      requestAnimationFrame(animateRing);
+    })();
+
+    window.addEventListener('mouseover', (e) => {
+      if (isInteractive(e.target)) document.body.classList.add('cursor-active');
+      else document.body.classList.remove('cursor-active');
+    });
+    window.addEventListener('mousedown', () => document.body.classList.add('cursor-active'));
+    window.addEventListener('mouseup', () => document.body.classList.remove('cursor-active'));
+    window.addEventListener('mouseleave', () => { dot.classList.add('cursor-hide'); ring.classList.add('cursor-hide'); });
+    window.addEventListener('mouseenter', () => { dot.classList.remove('cursor-hide'); ring.classList.remove('cursor-hide'); });
+
+    const canvas = document.getElementById('particles');
+    const ctx = canvas.getContext('2d', { alpha: true });
+    let dpr = Math.max(1, window.devicePixelRatio || 1);
+    let w = 0, h = 0, particles = [];
+
+    function resize() {
+      w = canvas.clientWidth; h = canvas.clientHeight;
+      canvas.width = Math.floor(w * dpr);
+      canvas.height = Math.floor(h * dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
+    window.addEventListener('resize', resize); resize();
+
+    const COUNT = 120;
+    function initParticles() {
+      particles = [];
+      for (let i = 0; i < COUNT; i++) {
+        particles.push({
+          x: Math.random() * w,
+          y: Math.random() * h,
+          vx: (Math.random() - 0.5) * 0.6,
+          vy: (Math.random() - 0.5) * 0.6,
+          r: Math.random() * 1.6 + 0.3,
+        });
+      }
+    }
+    initParticles();
+
+    function step() {
+      ctx.clearRect(0, 0, w, h);
+
+      // Move particles
+      for (let i = 0; i < particles.length; i++) {
+        const p = particles[i];
+        p.x += p.vx; p.y += p.vy;
+
+        if (p.x < -50) p.x = w + 50;
+        if (p.x > w + 50) p.x = -50;
+        if (p.y < -50) p.y = h + 50;
+        if (p.y > h + 50) p.y = -50;
+
+        const dx = mx - p.x, dy = my - p.y;
+        const dist = Math.hypot(dx, dy);
+        if (dist < 140) {
+          p.vx -= dx / 12000;
+          p.vy -= dy / 12000;
+        }
+      }
+
+      // Determine palette based on theme (light mode: darker, more prominent)
+      const isLight = document.documentElement.getAttribute('data-theme') === 'light';
+      const C1 = isLight ? [13,148,136] : [94,234,212];   // teal-600 vs cyan-400
+      const C2 = isLight ? [109,40,217] : [168,85,247];   // violet-700 vs fuchsia-500
+      const maxAlpha = isLight ? 0.55 : 0.35;
+      const lineW = isLight ? 1.2 : 1.0;
+      const dotFill = isLight ? 'rgba(14,116,144,0.9)' : 'rgba(185, 250, 255, 0.8)';
+
+      // Draw connection lines
+      for (let i = 0; i < particles.length; i++) {
+        const p1 = particles[i];
+        for (let j = i + 1; j < particles.length; j++) {
+          const p2 = particles[j];
+          const dx = p1.x - p2.x, dy = p1.y - p2.y;
+          const d = Math.hypot(dx, dy);
+          if (d < 90) {
+            const alpha = (1 - d / 90) * maxAlpha;
+            const t = (p1.x + p2.x) / (2 * w);
+            const r = Math.floor(C1[0] * (1-t) + C2[0] * t);
+            const g = Math.floor(C1[1] * (1-t) + C2[1] * t);
+            const b = Math.floor(C1[2] * (1-t) + C2[2] * t);
+            ctx.strokeStyle = `rgba(${r},${g},${b},${alpha})`;
+            ctx.lineWidth = lineW;
+            ctx.beginPath();
+            ctx.moveTo(p1.x, p1.y);
+            ctx.lineTo(p2.x, p2.y);
+            ctx.stroke();
+          }
+        }
+      }
+
+      // Draw particles
+      for (const p of particles) {
+        ctx.fillStyle = dotFill;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fill();
+      }
+      requestAnimationFrame(step);
+    }
+    step();
+
+    const observer = new IntersectionObserver((entries) => {
+      for (const e of entries) if (e.isIntersecting) e.target.classList.add('visible');
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  </script>
+
+  <script>
+    (function(){
+      const els=document.querySelectorAll('[data-parallax]');
+      if(!els.length)return;
+      let cx=window.innerWidth/2,cy=window.innerHeight/2;
+      window.addEventListener('resize',()=>{cx=window.innerWidth/2;cy=window.innerHeight/2;});
+      function update(){
+        for(const el of els){
+          const d=parseFloat(el.getAttribute('data-parallax'))||0.03;
+          const dx=(window.mx - cx)*d;
+          const dy=(window.my - cy)*d;
+          el.style.transform=`translate3d(${dx}px, ${dy}px, 0)`;
+        }
+        requestAnimationFrame(update);
+      }
+      update();
+    })();
+  </script>
+
+  <script>
+    const themeToggles = [document.getElementById('themeToggle'), document.getElementById('themeToggleMobile')].filter(Boolean);
+    const metaTheme = document.querySelector('meta[name="theme-color"]');
+
+    const drawer = document.getElementById('drawer');
+    const drawerPanel = document.getElementById('drawerPanel');
+    const drawerBackdrop = document.getElementById('drawerBackdrop');
+    const menuOpenBtn = document.getElementById('menuOpen');
+    const drawerCloseBtn = document.getElementById('drawerClose');
+
+    function setThemeIconState(theme) {
+      const light = theme === 'light';
+      // Query icons fresh each time to get current DOM elements (after Lucide conversion)
+      const sunIcons = document.querySelectorAll('.theme-icon-sun');
+      const moonIcons = document.querySelectorAll('.theme-icon-moon');
+      
+      sunIcons.forEach(i => {
+        if (light) {
+          i.classList.add('hidden');
+        } else {
+          i.classList.remove('hidden');
+        }
+      });
+      moonIcons.forEach(i => {
+        if (light) {
+          i.classList.remove('hidden');
+        } else {
+          i.classList.add('hidden');
+        }
+      });
+    }
+
+    function applyTheme(theme, animate = true) {
+      if (animate) document.documentElement.classList.add('theme-anim');
+      document.documentElement.setAttribute('data-theme', theme);
+      localStorage.setItem('theme', theme);
+      if (metaTheme) metaTheme.setAttribute('content', theme === 'light' ? '#f8fafc' : '#0b0f14');
+      setThemeIconState(theme);
+      if (animate) setTimeout(() => document.documentElement.classList.remove('theme-anim'), 360);
+    }
+
+    function getPreferredTheme() {
+      const stored = localStorage.getItem('theme');
+      if (stored) return stored;
+      return window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+    }
+
+    applyTheme(getPreferredTheme(), false);
+
+    themeToggles.forEach(btn => btn && btn.addEventListener('click', () => {
+      const next = (document.documentElement.getAttribute('data-theme') === 'light') ? 'dark' : 'light';
+      applyTheme(next, true);
+    }));
+
+    function openDrawer() {
+      drawer.classList.remove('opacity-0','pointer-events-none');
+      drawerPanel.classList.remove('-translate-x-full');
+      document.body.classList.add('overflow-hidden');
+    }
+    function closeDrawer() {
+      drawer.classList.add('opacity-0','pointer-events-none');
+      drawerPanel.classList.add('-translate-x-full');
+      document.body.classList.remove('overflow-hidden');
+    }
+
+    menuOpenBtn && menuOpenBtn.addEventListener('click', openDrawer);
+    drawerCloseBtn && drawerCloseBtn.addEventListener('click', closeDrawer);
+    drawerBackdrop && drawerBackdrop.addEventListener('click', closeDrawer);
+    window.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeDrawer(); });
+
+    lucide.createIcons();
+  </script>
+
+  <script>
+    // Load and render projects
+    async function loadProjects() {
+      try {
+        const response = await fetch('projects.json');
+        const data = await response.json();
+        const container = document.getElementById('projectsContainer');
+        
+        if (!container) return;
+        
+        container.innerHTML = data.projects.map(project => `
+          <a href="${project.link}" class="reveal group relative overflow-hidden rounded-2xl glass hover:ring-1 hover:ring-cyan-400/40 transition-all">
+            <div class="relative">
+              <img src="${project.image}" alt="${project.title}" class="h-52 w-full object-cover opacity-90 group-hover:opacity-100 transition">
+              <div class="absolute inset-0 bg-gradient-to-t from-[#0b0f14] via-transparent to-transparent media-fade"></div>
+            </div>
+            <div class="p-5">
+              <div class="flex items-center gap-2 text-xs text-slate-400">
+                <i data-lucide="${project.categoryIcon}" class="size-4 text-cyan-300"></i>
+                ${project.category}
+              </div>
+              <h3 class="mt-2 text-lg font-medium tracking-tight">${project.title}</h3>
+              <p class="mt-2 text-sm text-slate-400">${project.description}</p>
+            </div>
+          </a>
+        `).join('');
+        
+        // Recreate icons for new elements
+        lucide.createIcons();
+        
+        // Re-observe for reveal animations
+        const observer = new IntersectionObserver((entries) => {
+          for (const e of entries) if (e.isIntersecting) e.target.classList.add('visible');
+        }, { threshold: 0.12 });
+        container.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+      } catch (error) {
+        console.error('Error loading projects:', error);
+      }
+    }
+
+    // Load and render contact info
+    async function loadContact() {
+      try {
+        const response = await fetch('contact.json');
+        const data = await response.json();
+        const container = document.getElementById('contactContainer');
+        
+        if (!container) return;
+        
+        let html = `
+          <div>
+            <div class="flex items-center gap-3">
+              <i data-lucide="mail" class="size-5 text-cyan-300"></i>
+              <h3 class="text-base font-medium tracking-tight">Email</h3>
+            </div>
+            <a href="mailto:${data.email}" class="mt-2 text-slate-400 text-sm hover:text-cyan-300/90 transition">${data.email}</a>
+          </div>
+        `;
+        
+        if (data.social && data.social.length > 0) {
+          html += '<div class="h-px bg-white/10"></div>';
+          html += `
+            <div>
+              <div class="flex items-center gap-3">
+                <i data-lucide="globe" class="size-5 text-indigo-300"></i>
+                <h3 class="text-base font-medium tracking-tight">Social</h3>
+              </div>
+              <div class="mt-3 flex flex-wrap gap-3 text-sm">
+                ${data.social.map(social => `
+                  <a class="inline-flex items-center gap-1 text-slate-300 hover:text-cyan-300/90 transition" href="${social.url}" target="_blank" rel="noopener noreferrer">
+                    <i data-lucide="${social.icon}" class="size-4"></i>
+                    ${social.name}
+                  </a>
+                `).join('')}
+              </div>
+            </div>
+          `;
+        }
+        
+        container.innerHTML = html;
+        
+        // Recreate icons for new elements
+        lucide.createIcons();
+      } catch (error) {
+        console.error('Error loading contact:', error);
+      }
+    }
+
+    // Load data when DOM is ready
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', () => {
+        loadProjects();
+        loadContact();
+      });
+    } else {
+      loadProjects();
+      loadContact();
+    }
+  </script>
+
+</body></html>
