@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>vortyx Tech Business Card</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <style>
+    body { 
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background: #e5e7eb;
+    }
+    .card-container {
+      width: 3.5in;
+      height: 2in;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+    }
+    @media print {
+      body { background: white; }
+      .controls { display: none; }
+      .card-container { box-shadow: none; }
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col items-center justify-center p-8">
+
+  <!-- Business Card Front -->
+  <div id="cardFront" class="card-container bg-gradient-to-br from-slate-900 to-slate-800  relative">
+    <!-- Subtle geometric pattern -->
+    <div class="absolute inset-0 opacity-5">
+      <div class="absolute inset-0" style="background-image: linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px); background-size: 20px 20px;"></div>
+    </div>
+    
+    <!-- Accent gradient -->
+    <div class="absolute -top-20 -right-20 w-40 h-40 bg-cyan-500/10 rounded-full blur-3xl"></div>
+    <div class="absolute -bottom-20 -left-20 w-40 h-40 bg-fuchsia-500/10 rounded-full blur-3xl"></div>
+    
+    <!-- Content -->
+    <div class="relative h-full p-6 flex flex-col justify-between">
+      <!-- Logo -->
+      <div class="flex items-center gap-2">
+        <svg viewBox="0 0 100 100" class="w-10 h-10">
+          <circle cx="50" cy="50" r="46" fill="none" stroke="#9aa0a6" stroke-width="4"></circle>
+          <line x1="50" y1="32" x2="50" y2="67" stroke="#8892a6" stroke-width="1.2" opacity="0.5"></line>
+          <line x1="18" y1="50" x2="82" y2="50" stroke="#8892a6" stroke-width="1.2" opacity="0.5"></line>
+          <polyline points="17.8,52.2 37.8,32.2 92.8,32.2" fill="none" stroke="#ffffff" stroke-width="3"></polyline>
+          <g transform="translate(100,100) scale(-1,-1)">
+            <polyline points="17.8,52.2 37.8,32.2 92.8,32.2" fill="none" stroke="#ffffff" stroke-width="3"></polyline>
+          </g>
+          <circle cx="15.2" cy="54.6" r="4.5" fill="#ffffff"></circle>
+          <circle cx="83.4" cy="45" r="4.5" fill="#ffffff"></circle>
+        </svg>
+        <div class="flex flex-col leading-tight">
+          <span class="text-white font-semibold text-sm tracking-tight">vortyx Tech</span>
+          <span class="text-slate-400 text-[9px]">Web development company — AI &amp; automation</span>
+        </div>
+      </div>
+      
+      <!-- Name & Title -->
+      <div>
+        <h2 class="text-white text-xl font-semibold tracking-tight">Muhammad Saad</h2>
+        <p class="text-slate-400 text-xs mt-0.5">Founder & Lead Developer</p>
+      </div>
+    </div>
+  </div>
+<br>
+<br>
+  <!-- Business Card Back -->
+  <div id="cardBack" class="card-container bg-white  relative ">
+    <!-- Subtle pattern -->
+    <div class="absolute inset-0 opacity-[0.03]">
+      <div class="absolute inset-0" style="background-image: linear-gradient(rgba(0,0,0,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,0.1) 1px, transparent 1px); background-size: 20px 20px;"></div>
+    </div>
+    
+    <!-- Accent line -->
+    <div class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-cyan-500 via-cyan-400 to-fuchsia-500"></div>
+    
+    <!-- Content -->
+    <div class="relative h-full p-6 flex justify-between">
+      <!-- Contact Info -->
+      <div class="flex flex-col justify-center gap-3 text-slate-700">
+        <div class="flex items-center gap-2.5">
+          <i data-lucide="phone" class="w-3.5 h-3.5 text-cyan-600"></i>
+          <span class="text-xs font-medium">+92 323 6300813</span>
+        </div>
+        <div class="flex items-start gap-2.5">
+          <i data-lucide="mail" class="w-3.5 h-3.5 text-cyan-600 mt-0.5"></i>
+          <span class="text-[10px] font-medium leading-tight">muhammasaadmeh824<br>@gmail.com</span>
+        </div>
+        <div class="flex items-center gap-2.5">
+          <i data-lucide="linkedin" class="w-3.5 h-3.5 text-cyan-600"></i>
+          <span class="text-[9px] font-medium">muhammad-saad-mehboob</span>
+        </div>
+      </div>
+      
+      <!-- QR Code -->
+      <div class="flex flex-col items-center justify-center">
+        <div id="qrcode" class="bg-white p-1.5 rounded-lg border border-slate-200"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    lucide.createIcons();
+    
+    // Generate QR code (replace with your actual website URL)
+    new QRCode(document.getElementById("qrcode"), {
+      text: "https://vortyxtech.online",
+      width: 70,
+      height: 70,
+      colorDark: "#0f172a",
+      colorLight: "#ffffff",
+      correctLevel: QRCode.CorrectLevel.M
+    });
+    
+    function toggleSide() {
+      const front = document.getElementById('cardFront');
+      const back = document.getElementById('cardBack');
+      
+      if (front.classList.contains('hidden')) {
+        front.classList.remove('hidden');
+        back.classList.add('hidden');
+      } else {
+        front.classList.add('hidden');
+        back.classList.remove('hidden');
+      }
+      
+      // Reinitialize icons after toggle
+      setTimeout(() => lucide.createIcons(), 10);
+    }
+  </script>
+</body>
+</html>
